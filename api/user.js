@@ -11,6 +11,7 @@ module.exports = app => {
     const save = async (req, res) => {
         
         const user = { ...req.body }
+        user.cientista = true
         console.log(user)
         if(req.params.id) user.id = req.params.id
 
@@ -22,7 +23,7 @@ module.exports = app => {
             existsOrError(user.email, 'E-mail não informado')
             existsOrError(user.password, 'Senha não informada')
             existsOrError(user.nascimento, 'Data de nascimento não informada')
-            existsOrError(user.cientista, 'Check - box cientista não marcado')
+            //existsOrError(user.cientista, 'Check - box cientista não marcado')
             if(user.cientista == false) throw 'Não é um cientista!'
             existsOrError(user.confirmPassword, 'Confirmação de Senha inválida')
             equalsOrError(user.password, user.confirmPassword,
@@ -39,10 +40,12 @@ module.exports = app => {
 
         user.password = encryptPassword(user.password)
         delete user.confirmPassword
-
+        console.log('________')
+        console.log(user.id)
         if(user.id) {
             app.db('users')
-                .update(user)
+                .update({name:user.name, email:user.email, nascimento:user.nascimento, trabalho_data:user.data_trabalho,
+                salario:user.salario, empresa:user.empresa, password:user.password})
                 .where({ id: user.id })
                 .whereNull('deletedAt')
                 .then(_ => res.status(204).send())

@@ -24,6 +24,11 @@ module.exports = app => {
             name: user.name,
             email: user.email,
             admin: user.admin,
+            empresa: user.emrpesa,
+            nascimento:user.nascimento,
+            trabalho_data:user.trabalho_data,
+            salario:user.salario,
+            nivel:user.nivel,
             iat: now,
             exp: now + (60 * 60 * 24 * 3)
         }
