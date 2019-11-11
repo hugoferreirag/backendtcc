@@ -4,7 +4,7 @@ module.exports = {
 	connection: process.env.DATABASE_URL,
 
 	migrations: {
-		directory:'migrations'
+		directory: __dirname + '/migrations'
 	}
 }
 };
