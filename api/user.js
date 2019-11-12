@@ -57,7 +57,12 @@ module.exports = app => {
                 .catch(err => res.status(500).send(err))
         }
     }
-
+    const getshare = (req,res) =>{
+        console.log(req.params.id)
+        app.db.raw(`SELECT id,name FROM users WHERE name LIKE '%${req.params.id}%'`)
+        .then(result => res.status(200).json(result.rows))
+        .catch(err=>res.status(500).json(err))
+    }
     const get = (req, res) => {
         app.db('users')
             .whereNull('deletedAt')
@@ -91,5 +96,5 @@ module.exports = app => {
         }
     }
 
-    return { save, get, getById, remove }
+    return { getshare,save, get, getById, remove }
 }

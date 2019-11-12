@@ -10,6 +10,9 @@ module.exports = app => {
         .post(app.api.user.save)
         .get(app.api.user.get)
 
+    app.route('/usersshare/:id')
+        .get(app.api.user.getshare)
+
     app.route('/users/:id')
         .all(app.config.passport.authenticate())
         .put(app.api.user.save)
